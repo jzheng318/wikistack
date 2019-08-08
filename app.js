@@ -14,12 +14,14 @@ app.use(staticMiddleware);
 app.use(morgan('dev'));
 app.use(express.json());
 // app.use('/', wikiRouter);
-app.use('/wiki', wikiRouter);
-app.use('/user', userRouter);
 
 app.get('/', (req, res) => {
   res.send(index.main(''));
 });
+
+//whenever you use 'use', you'll attach any of the router paths to the end of the path specified in your use statement
+app.use('/wiki', wikiRouter);
+app.use('/user', userRouter);
 
 models.db.authenticate().then(() => {
   console.log('connected to the database');
